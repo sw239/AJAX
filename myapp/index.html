@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AJAX Exercises</title>
+        <input id="load-image" type="button" value="load an image" onclick="loadImage()">
+    </head>
+    <script>
+    
+
+    function loadImage() {
+    var url = "http://localhost:8080/hw/hworld?numImages=1";
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", function() {
+    if (this.status == 200) {
+        // loading succeeded
+        var image = document.getElementById("image");
+        image.src = "images/"+this.responseText;
+        var image_text = document.getElementById("image-text");
+        image_text.textContent = this.responseText;
+        alert(this.responseText);
+    } else {
+        console.error("error fetching " + url);
+        console.error("status code: " + this.status + " " + this.statusText);
+    }
+});
+xhr.open("GET", url);
+xhr.send();
+        
+    }
+</script>
+
+    <body>
+        <img id="image" src="images/image1.jpg">
+        <p id="image-text">the first image</p>
+    </body>
+</html>
+
